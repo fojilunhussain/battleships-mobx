@@ -1,12 +1,17 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import { observable, autorun } from 'mobx'
 
-ReactDOM.render(<App />, document.getElementById('root'));
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+const battleshipsStore = observable({
+    playersBoard: [],
+    computersBoard: [],
+    ships: {
+        Carrier: 5,
+        Battleship: 4,
+        Cruiser: 3,
+        Submarine: 3,
+        Destroyer: 2
+    },
+    hits: 0,
+    misses: 100,
+    turnsRemaining: 100,
+    gameStarted: false
+})
