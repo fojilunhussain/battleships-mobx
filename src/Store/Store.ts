@@ -27,6 +27,16 @@ class BattleshipsGameStore {
     misses : number = 0
     @observable
     gameStarted : boolean = false
+
+    @action
+    generatePlayerBoard = () => {
+        for (let y = 0; y < 3; y++) {
+            for (let x = 0; x < 3; x++) {
+                this.playerBoard.push("wheee")
+            }
+        }
+        console.log(this.playerBoard)
+    }
 }
 
 export const store : Stores = {
