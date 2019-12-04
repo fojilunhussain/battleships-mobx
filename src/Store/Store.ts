@@ -1,4 +1,4 @@
-import { observable, action, computed } from 'mobx';
+import { observable, action, computed, toJS } from 'mobx';
 
 export interface Stores {
     battleshipsGameStore: BattleshipsGameStore
@@ -44,8 +44,19 @@ class BattleshipsGameStore {
                 this.playerBoard[y].push("_")
             }
         }
-        console.log((this.playerBoard).toString())
+        console.log(toJS(this.playerBoard))
         return(this.playerBoard)
+    }
+    @action
+    generateComputerBoard = () => {
+        for (let y = 0; y < 10; y++) {
+            this.computerBoard.push([])
+            for (let x = 0; x < 10; x++) {
+                this.computerBoard[y].push("_")
+            }
+        }
+        console.log(toJS(this.computerBoard))
+        return(this.computerBoard)
     }
 }
 
