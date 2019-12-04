@@ -27,8 +27,8 @@ const BattleshipsRaw = (props: IInjectedProps) => {
         generateRandomCoordinates!()
     }
 
-    const checkIfHit = (event: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(event.target.value)
+    const checkIfHit = () => {
+
     }
 
     return(
@@ -43,7 +43,7 @@ const BattleshipsRaw = (props: IInjectedProps) => {
                         <button
                             key = {`${i}${j}`}
                         >
-                            {playerBoard![guessCoordinateY!][guessCoordinateX!]}
+                            {playerBoard![i][j]}
                         </button>
                     )}
                 </div>
