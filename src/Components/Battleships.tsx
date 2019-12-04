@@ -4,24 +4,27 @@ import { Stores } from "../Store/Store"
 
 interface IInjectedProps {
     playerBoard?: string[][];
-    coordinateY?: number;
-    coordinateX?: number;
+    guessCoordinateY?: number;
+    guessCoordinateX?: number;
     // computerBoard : string[][],
     // hits : number,
     // misses : number,
     // gameStarted : boolean,
     generatePlayerBoard?: () => void;
     generateComputerBoard?: () => void;
+    generateRandomCoordinates?: () => void;
 }
 
 const BattleshipsRaw = (props: IInjectedProps) => {
 
-    const { playerBoard, coordinateY, coordinateX, generatePlayerBoard, generateComputerBoard } = props;
+    const { playerBoard, guessCoordinateY, guessCoordinateX, generatePlayerBoard, generateComputerBoard,
+            generateRandomCoordinates
+          } = props;
 
     const generateBoards = () => {
-        console.log(playerBoard!.toString())
         generatePlayerBoard!()
         generateComputerBoard!()
+        generateRandomCoordinates!()
     }
 
     return(
@@ -33,7 +36,7 @@ const BattleshipsRaw = (props: IInjectedProps) => {
             {playerBoard!.map(row =>
                 <div>
                     {row.map(column =>
-                        <button>{playerBoard![coordinateY!][coordinateX!]}</button>
+                        <button>{playerBoard![guessCoordinateY!][guessCoordinateX!]}</button>
                     )}
                 </div>
             )}
@@ -44,9 +47,10 @@ const BattleshipsRaw = (props: IInjectedProps) => {
 export const Battleships = inject(
     ({ store }: { store: Stores }): IInjectedProps => ({
         playerBoard: store.battleshipsGameStore.playerBoard,
-        coordinateY: store.battleshipsGameStore.coordinateY,
-        coordinateX: store.battleshipsGameStore.coordinateX,
+        guessCoordinateY: store.battleshipsGameStore.guessCoordinateY,
+        guessCoordinateX: store.battleshipsGameStore.guessCoordinateX,
         generatePlayerBoard: store.battleshipsGameStore.generatePlayerBoard,
-        generateComputerBoard: store.battleshipsGameStore.generateComputerBoard
+        generateComputerBoard: store.battleshipsGameStore.generateComputerBoard,
+        generateRandomCoordinates: store.battleshipsGameStore.generateRandomCoordinates
     })
   )(observer(BattleshipsRaw));

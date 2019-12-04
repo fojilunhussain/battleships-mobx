@@ -14,9 +14,13 @@ class BattleshipsGameStore {
     @observable
     computerBoard: string[][]  = []
     @observable
-    coordinateY: number = 0
+    guessCoordinateY: number = 0
     @observable
-    coordinateX: number = 0
+    guessCoordinateX: number = 0
+    @observable
+    placeShipCoordinateY: number = 0
+    @observable
+    placeShipCoordinateX: number = 0
     // @observable
     // ships : ShipsGameStore = {
     //     Carrier: 1,
@@ -35,12 +39,12 @@ class BattleshipsGameStore {
     @action
     generatePlayerBoard = () => {
         for (let y = 0; y < 10; y++) {
-            this.coordinateY = y
-            console.log(this.coordinateY)
+            this.guessCoordinateY = y
+            console.log(this.guessCoordinateY)
             this.playerBoard.push([])
             for (let x = 0; x < 10; x++) {
-                this.coordinateX = x
-                console.log(this.coordinateX)
+                this.guessCoordinateX = x
+                console.log(this.guessCoordinateX)
                 this.playerBoard[y].push("_")
             }
         }
@@ -57,6 +61,12 @@ class BattleshipsGameStore {
         }
         console.log(toJS(this.computerBoard))
         return(this.computerBoard)
+    }
+    @action
+    generateRandomCoordinates = () => {
+        this.placeShipCoordinateY = Math.floor(Math.random()*9)
+        this.placeShipCoordinateX = Math.floor(Math.random()*9)
+        console.log(this.placeShipCoordinateY, this.placeShipCoordinateX)
     }
 }
 
