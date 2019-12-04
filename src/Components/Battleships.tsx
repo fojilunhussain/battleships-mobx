@@ -29,7 +29,7 @@ const BattleshipsRaw = (props: IInjectedProps) => {
                 New game
             </button>
 
-    {playerBoard!.map(row => row.map(column => <button></button>))}
+            {playerBoard!.map(row => row.map(column => <button>{playerBoard![coordinateY!][coordinateX!]}</button>))}
         </>
     );
 }
@@ -37,6 +37,8 @@ const BattleshipsRaw = (props: IInjectedProps) => {
 export const Battleships = inject(
     ({ store }: { store: Stores }): IInjectedProps => ({
         playerBoard: store.battleshipsGameStore.playerBoard,
+        coordinateY: store.battleshipsGameStore.coordinateY,
+        coordinateX: store.battleshipsGameStore.coordinateX,
         generatePlayerBoard: store.battleshipsGameStore.generatePlayerBoard
     })
   )(observer(BattleshipsRaw));
