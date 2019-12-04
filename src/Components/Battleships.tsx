@@ -25,9 +25,9 @@ const BattleshipsRaw = (props: IInjectedProps) => {
         <>
             <button onClick = {() => {generateBoards()}}>
                 New game
-            </button><br />
+            </button>
 
-            {playerBoard!.map(row => (<button></button>))}
+            {playerBoard!.map(row => row.map(column => <button></button>))}
         </>
     );
 }
