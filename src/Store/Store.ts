@@ -25,12 +25,12 @@ class BattleshipsGameStore {
     //     Submarine: 1,
     //     Destroyer: 1
     // }
-    @observable
-    hits: number = 0
-    @observable
-    misses: number = 0
-    @observable
-    gameStarted: boolean = false
+    // @observable
+    // hits: number = 0
+    // @observable
+    // misses: number = 0
+    // @observable
+    // gameStarted: boolean = false
 
     @action
     generatePlayerBoard = () => {
