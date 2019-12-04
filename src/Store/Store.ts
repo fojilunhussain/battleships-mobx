@@ -10,9 +10,9 @@ export interface Stores {
 
 class BattleshipsGameStore {
     @observable
-    playerBoard : string[] = []
+    playerBoard: string[][] = []
     @observable
-    computerBoard : string[] = []
+    computerBoard: string[][]  = []
     // @observable
     // ships : ShipsGameStore = {
     //     Carrier: 1,
@@ -22,20 +22,22 @@ class BattleshipsGameStore {
     //     Destroyer: 1
     // }
     @observable
-    hits : number = 0
+    hits: number = 0
     @observable
-    misses : number = 0
+    misses: number = 0
     @observable
-    gameStarted : boolean = false
+    gameStarted: boolean = false
 
     @action
     generatePlayerBoard = () => {
-        for (let y = 0; y < 3; y++) {
-            for (let x = 0; x < 3; x++) {
-                this.playerBoard.push("wheee")
+        for (let y = 0; y < 10; y++) {
+            this.playerBoard.push([])
+            for (let x = 0; x < 10; x++) {
+                this.playerBoard[y].push("_")
             }
         }
-        console.log(this.playerBoard)
+        console.log((this.playerBoard).toString())
+        return(this.playerBoard)
     }
 }
 
