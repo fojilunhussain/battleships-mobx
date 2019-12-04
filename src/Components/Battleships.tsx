@@ -27,16 +27,24 @@ const BattleshipsRaw = (props: IInjectedProps) => {
         generateRandomCoordinates!()
     }
 
+    const checkIfHit = (event: React.ChangeEvent<HTMLInputElement>) => {
+        console.log(event.target.value)
+    }
+
     return(
         <>
             <button onClick = {() => {generateBoards()}}>
                 New game
             </button>
 
-            {playerBoard!.map(row =>
-                <div>
-                    {row.map(column =>
-                        <button>{playerBoard![guessCoordinateY!][guessCoordinateX!]}</button>
+            {playerBoard!.map((row,i) =>
+                <div key={i}>
+                    {row.map((column, j) =>
+                        <button
+                            key = {`${i}${j}`}
+                        >
+                            {playerBoard![guessCoordinateY!][guessCoordinateX!]}
+                        </button>
                     )}
                 </div>
             )}
