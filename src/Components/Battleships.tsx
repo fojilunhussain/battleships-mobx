@@ -29,7 +29,13 @@ const BattleshipsRaw = (props: IInjectedProps) => {
                 New game
             </button>
 
-            {playerBoard!.map(row => <div>{row.map(column => <button>{playerBoard![coordinateY!][coordinateX!]}</button>)}</div>)}
+            {playerBoard!.map(row =>
+                <div>
+                    {row.map(column =>
+                        <button>{playerBoard![coordinateY!][coordinateX!]}</button>
+                    )}
+                </div>
+            )}
         </>
     );
 }
