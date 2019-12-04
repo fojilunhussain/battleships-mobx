@@ -4,6 +4,8 @@ import { Stores } from "../Store/Store"
 
 interface IInjectedProps {
     playerBoard?: string[][],
+    coordinateY?: number,
+    coordinateX?: number,
     // computerBoard : string[][],
     // hits : number,
     // misses : number,
@@ -13,7 +15,7 @@ interface IInjectedProps {
 
 const BattleshipsRaw = (props: IInjectedProps) => {
 
-    const { playerBoard, generatePlayerBoard } = props;
+    const { playerBoard, coordinateY, coordinateX, generatePlayerBoard } = props;
 
     const generateBoards = () => {
         console.log(playerBoard!.toString())
@@ -27,7 +29,7 @@ const BattleshipsRaw = (props: IInjectedProps) => {
                 New game
             </button>
 
-            {playerBoard!.map(row => row.map(column => <button></button>))}
+    {playerBoard!.map(row => row.map(column => <button></button>))}
         </>
     );
 }
