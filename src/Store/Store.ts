@@ -67,6 +67,9 @@ class BattleshipsGameStore {
         this.placeShipCoordinateY = Math.floor(Math.random()*9)
         this.placeShipCoordinateX = Math.floor(Math.random()*9)
         console.log(this.placeShipCoordinateY, this.placeShipCoordinateX)
+        this.computerBoard[this.placeShipCoordinateY][this.placeShipCoordinateX] = "X"
+        console.log(toJS(this.computerBoard))
+        return(this.placeShipCoordinateY, this.placeShipCoordinateX, this.computerBoard)
     }
 }
 
