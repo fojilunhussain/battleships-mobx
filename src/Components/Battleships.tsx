@@ -11,12 +11,13 @@ interface IInjectedProps {
     generatePlayerBoard?: () => void;
     generateComputerBoard?: () => void;
     generateRandomCoordinates?: () => void;
+    placeCorrectHit?: (j:number, i:number) => void;
 }
 
 const BattleshipsRaw = (props: IInjectedProps) => {
 
     const { playerBoard, computerBoard, generatePlayerBoard, generateComputerBoard,
-            generateRandomCoordinates
+            generateRandomCoordinates, placeCorrectHit
           } = props;
 
     const generateBoards = () => {
@@ -26,14 +27,8 @@ const BattleshipsRaw = (props: IInjectedProps) => {
     }
 
     const checkIfHit = (j:number, i:number) => {
-        console.log(j, i)
-        if (computerBoard![j][i] === "X") {
-            console.log("ooo")
-        } else {
-            console.log("eee")
-        }
+        placeCorrectHit!(j, i)
     }
-    // console.log(guessY, guessX)
 
     return(
         <>
@@ -67,6 +62,7 @@ export const Battleships = inject(
         computerBoard: store.battleshipsGameStore.computerBoard,
         generatePlayerBoard: store.battleshipsGameStore.generatePlayerBoard,
         generateComputerBoard: store.battleshipsGameStore.generateComputerBoard,
-        generateRandomCoordinates: store.battleshipsGameStore.generateRandomCoordinates
+        generateRandomCoordinates: store.battleshipsGameStore.generateRandomCoordinates,
+        placeCorrectHit: store.battleshipsGameStore.placeCorrectHit
     })
   )(observer(BattleshipsRaw));

@@ -68,8 +68,14 @@ class BattleshipsGameStore {
         return(this.placeShipCoordinateY, this.placeShipCoordinateX, this.computerBoard)
     }
     @action
-    placeHit = () => {
-
+    placeCorrectHit = (j:number, i:number) => {
+        console.log(j, i)
+        if (this.computerBoard[j][i] === "X") {
+            console.log("ooo")
+            this.playerBoard[j][i] = "X"
+        } else {
+            console.log("eee")
+        }
     }
 }
 
