@@ -4,8 +4,6 @@ import { Stores } from "../Store/Store"
 
 interface IInjectedProps {
     playerBoard?: string[][];
-    guessCoordinateY?: number;
-    guessCoordinateX?: number;
     // computerBoard : string[][],
     // hits : number,
     // misses : number,
@@ -17,7 +15,10 @@ interface IInjectedProps {
 
 const BattleshipsRaw = (props: IInjectedProps) => {
 
-    const { playerBoard, guessCoordinateY, guessCoordinateX, generatePlayerBoard, generateComputerBoard,
+    const [guessY, setGuessY] = React.useState<number>()
+    const [guessX, setGuessX] = React.useState<number>()
+
+    const { playerBoard, generatePlayerBoard, generateComputerBoard,
             generateRandomCoordinates
           } = props;
 
@@ -28,8 +29,9 @@ const BattleshipsRaw = (props: IInjectedProps) => {
     }
 
     const checkIfHit = () => {
-
+        
     }
+    console.log(guessY, guessX)
 
     return(
         <>
@@ -37,13 +39,20 @@ const BattleshipsRaw = (props: IInjectedProps) => {
                 New game
             </button>
 
-            {playerBoard!.map((row,i) =>
-                <div key={i}>
-                    {row.map((column, j) =>
+            {playerBoard!.map((row, j) =>
+                <div key={j}>
+                    {row.map((column, i) =>
                         <button
-                            key = {`${i}${j}`}
+                            id = {`cell${j}${i}`}
+                            key = {`${j}${i}`}
+                            name={`${j},${i}`}
+                            onClick = {() => {
+                                setGuessY(j)
+                                setGuessX(i)
+                                checkIfHit()
+                            }}
                         >
-                            {playerBoard![i][j]}
+                            {playerBoard![j][i]}
                         </button>
                     )}
                 </div>
@@ -55,8 +64,6 @@ const BattleshipsRaw = (props: IInjectedProps) => {
 export const Battleships = inject(
     ({ store }: { store: Stores }): IInjectedProps => ({
         playerBoard: store.battleshipsGameStore.playerBoard,
-        guessCoordinateY: store.battleshipsGameStore.guessCoordinateY,
-        guessCoordinateX: store.battleshipsGameStore.guessCoordinateX,
         generatePlayerBoard: store.battleshipsGameStore.generatePlayerBoard,
         generateComputerBoard: store.battleshipsGameStore.generateComputerBoard,
         generateRandomCoordinates: store.battleshipsGameStore.generateRandomCoordinates

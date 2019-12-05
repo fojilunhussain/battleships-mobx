@@ -67,6 +67,10 @@ class BattleshipsGameStore {
         console.log(toJS(this.computerBoard))
         return(this.placeShipCoordinateY, this.placeShipCoordinateX, this.computerBoard)
     }
+    @action
+    placeHit = () => {
+
+    }
 }
 
 export const store : Stores = {
