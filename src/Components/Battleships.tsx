@@ -4,7 +4,7 @@ import { Stores } from "../Store/Store"
 
 interface IInjectedProps {
     playerBoard?: string[][];
-    // computerBoard : string[][],
+    computerBoard? : string[][];
     // hits : number,
     // misses : number,
     // gameStarted : boolean,
@@ -15,10 +15,7 @@ interface IInjectedProps {
 
 const BattleshipsRaw = (props: IInjectedProps) => {
 
-    const [guessY, setGuessY] = React.useState<number>()
-    const [guessX, setGuessX] = React.useState<number>()
-
-    const { playerBoard, generatePlayerBoard, generateComputerBoard,
+    const { playerBoard, computerBoard, generatePlayerBoard, generateComputerBoard,
             generateRandomCoordinates
           } = props;
 
@@ -28,10 +25,15 @@ const BattleshipsRaw = (props: IInjectedProps) => {
         generateRandomCoordinates!()
     }
 
-    const checkIfHit = () => {
-        
+    const checkIfHit = (j:number, i:number) => {
+        console.log(j, i)
+        if (computerBoard![j][i] === "X") {
+            console.log("ooo")
+        } else {
+            console.log("eee")
+        }
     }
-    console.log(guessY, guessX)
+    // console.log(guessY, guessX)
 
     return(
         <>
@@ -47,9 +49,7 @@ const BattleshipsRaw = (props: IInjectedProps) => {
                             key = {`${j}${i}`}
                             name={`${j},${i}`}
                             onClick = {() => {
-                                setGuessY(j)
-                                setGuessX(i)
-                                checkIfHit()
+                                checkIfHit(j, i)
                             }}
                         >
                             {playerBoard![j][i]}
@@ -64,6 +64,7 @@ const BattleshipsRaw = (props: IInjectedProps) => {
 export const Battleships = inject(
     ({ store }: { store: Stores }): IInjectedProps => ({
         playerBoard: store.battleshipsGameStore.playerBoard,
+        computerBoard: store.battleshipsGameStore.computerBoard,
         generatePlayerBoard: store.battleshipsGameStore.generatePlayerBoard,
         generateComputerBoard: store.battleshipsGameStore.generateComputerBoard,
         generateRandomCoordinates: store.battleshipsGameStore.generateRandomCoordinates
