@@ -63,17 +63,18 @@ class BattleshipsGameStore {
         this.placeShipCoordinateY = Math.floor(Math.random()*10)
         this.placeShipCoordinateX = Math.floor(Math.random()*10)
         console.log(this.placeShipCoordinateY, this.placeShipCoordinateX)
-        this.computerBoard[this.placeShipCoordinateY][this.placeShipCoordinateX] = "X"
+        this.computerBoard[this.placeShipCoordinateY][this.placeShipCoordinateX] = "O"
         console.log(toJS(this.computerBoard))
         return(this.placeShipCoordinateY, this.placeShipCoordinateX, this.computerBoard)
     }
     @action
-    placeCorrectHit = (j:number, i:number) => {
+    placeHit = (j:number, i:number) => {
         console.log(j, i)
-        if (this.computerBoard[j][i] === "X") {
+        if (this.computerBoard[j][i] === "O") {
             console.log("ooo")
-            this.playerBoard[j][i] = "X"
+            this.playerBoard[j][i] = "O"
         } else {
+            this.playerBoard[j][i] = "X"
             console.log("eee")
         }
     }
