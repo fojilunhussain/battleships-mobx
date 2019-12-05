@@ -18,10 +18,6 @@ class BattleshipsGameStore {
     @observable
     computerBoard: string[][]  = []
     @observable
-    guessCoordinateY: number = 0
-    @observable
-    guessCoordinateX: number = 0
-    @observable
     placeShipCoordinateY: number = 0
     @observable
     placeShipCoordinateX: number = 0
@@ -33,6 +29,8 @@ class BattleshipsGameStore {
         Submarine: 3,
         Destroyer: 2
     }
+    @observable
+    orientation: string = ""
     // @observable
     // hits: number = 0
     // @observable
@@ -66,7 +64,6 @@ class BattleshipsGameStore {
     generateStartCoordinates = () => {
         Object.values(this.ships).map((currentObject, index) => {
             console.log(currentObject)
-            console.log()
             this.placeShipCoordinateY = Math.floor(Math.random()*10)
             this.placeShipCoordinateX = Math.floor(Math.random()*10)
             console.log(this.placeShipCoordinateY, this.placeShipCoordinateX)
@@ -74,6 +71,33 @@ class BattleshipsGameStore {
             console.log(toJS(this.computerBoard))
         })
         return(this.placeShipCoordinateY, this.placeShipCoordinateX, this.computerBoard)
+    }
+    @action
+    determineOrientation = () => {
+        if (Math.round(Math.random()*1) === 0) {
+            this.orientation = "Horizontal"
+            console.log(this.orientation)
+            this.placeHorizontally()
+            // return this.orientation
+        } else {
+            this.orientation = "Vertical"
+            console.log(this.orientation)
+            this.placeVertically()
+            // return this.orientation
+        }
+        return this.orientation
+    }
+    @action
+    placeHorizontally = () => {
+        if (this.orientation === "Horizontal") {
+            console.log("wwwwwwwww")
+        }
+    }
+    @action
+    placeVertically = () => {
+        if (this.orientation === "Vertical") {
+            console.log("mmmmmmmmm")
+        }
     }
     @action
     placeHit = (j:number, i:number) => {

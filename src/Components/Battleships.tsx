@@ -4,31 +4,38 @@ import { Stores } from "../Store/Store"
 
 interface IInjectedProps {
     playerBoard?: string[][];
-    computerBoard? : string[][];
+    computerBoard?: string[][];
     // hits : number,
     // misses : number,
     // gameStarted : boolean,
+    orientation?: string;
     generatePlayerBoard?: () => void;
     generateComputerBoard?: () => void;
     generateStartCoordinates?: () => void;
+    determineOrientation?: () => void;
+    placeHorizontally?: () => void;
     placeHit?: (j:number, i:number) => void;
 }
 
 const BattleshipsRaw = (props: IInjectedProps) => {
 
-    const { playerBoard, computerBoard, generatePlayerBoard, generateComputerBoard,
-            generateStartCoordinates, placeHit
+    const { playerBoard, computerBoard, orientation, generatePlayerBoard,
+            generateComputerBoard, generateStartCoordinates, determineOrientation,
+            placeHorizontally, placeHit
           } = props;
 
     const generateBoards = () => {
         generatePlayerBoard!()
         generateComputerBoard!()
         generateStartCoordinates!()
+        determineOrientation!()
     }
 
     const checkIfHit = (j:number, i:number) => {
         placeHit!(j, i)
     }
+
+    console.log(Math.round(Math.random()*1))
 
     return(
         <>
@@ -60,9 +67,12 @@ export const Battleships = inject(
     ({ store }: { store: Stores }): IInjectedProps => ({
         playerBoard: store.battleshipsGameStore.playerBoard,
         computerBoard: store.battleshipsGameStore.computerBoard,
+        orientation: store.battleshipsGameStore.orientation,
         generatePlayerBoard: store.battleshipsGameStore.generatePlayerBoard,
         generateComputerBoard: store.battleshipsGameStore.generateComputerBoard,
         generateStartCoordinates: store.battleshipsGameStore.generateStartCoordinates,
+        determineOrientation: store.battleshipsGameStore.determineOrientation,
+        placeHorizontally: store.battleshipsGameStore.placeHorizontally,
         placeHit: store.battleshipsGameStore.placeHit
     })
   )(observer(BattleshipsRaw));
