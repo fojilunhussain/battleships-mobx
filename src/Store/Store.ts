@@ -4,9 +4,13 @@ export interface Stores {
     battleshipsGameStore: BattleshipsGameStore
 }
 
-// class ShipsGameStore { // add ships later
-//     Carrier : number 
-// }
+interface ships {
+    Carrier: number;
+    Battleship: number;
+    Cruiser: number;
+    Submarine: number;
+    Destroyer: number;
+}
 
 class BattleshipsGameStore {
     @observable
@@ -21,14 +25,14 @@ class BattleshipsGameStore {
     placeShipCoordinateY: number = 0
     @observable
     placeShipCoordinateX: number = 0
-    // @observable
-    // ships : ShipsGameStore = {
-    //     Carrier: 1,
-    //     Battleship: 1,
-    //     Cruiser: 1,
-    //     Submarine: 1,
-    //     Destroyer: 1
-    // }
+    @observable
+    ships: ships = {
+        Carrier: 5,
+        Battleship: 4,
+        Cruiser: 3,
+        Submarine: 3,
+        Destroyer: 2
+    }
     // @observable
     // hits: number = 0
     // @observable
@@ -59,12 +63,16 @@ class BattleshipsGameStore {
         return(this.computerBoard)
     }
     @action
-    generateRandomCoordinates = () => {
-        this.placeShipCoordinateY = Math.floor(Math.random()*10)
-        this.placeShipCoordinateX = Math.floor(Math.random()*10)
-        console.log(this.placeShipCoordinateY, this.placeShipCoordinateX)
-        this.computerBoard[this.placeShipCoordinateY][this.placeShipCoordinateX] = "O"
-        console.log(toJS(this.computerBoard))
+    generateStartCoordinates = () => {
+        Object.values(this.ships).map((currentObject, index) => {
+            console.log(currentObject)
+            console.log()
+            this.placeShipCoordinateY = Math.floor(Math.random()*10)
+            this.placeShipCoordinateX = Math.floor(Math.random()*10)
+            console.log(this.placeShipCoordinateY, this.placeShipCoordinateX)
+            this.computerBoard[this.placeShipCoordinateY][this.placeShipCoordinateX] = "O"
+            console.log(toJS(this.computerBoard))
+        })
         return(this.placeShipCoordinateY, this.placeShipCoordinateX, this.computerBoard)
     }
     @action

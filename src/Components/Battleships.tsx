@@ -10,20 +10,20 @@ interface IInjectedProps {
     // gameStarted : boolean,
     generatePlayerBoard?: () => void;
     generateComputerBoard?: () => void;
-    generateRandomCoordinates?: () => void;
+    generateStartCoordinates?: () => void;
     placeHit?: (j:number, i:number) => void;
 }
 
 const BattleshipsRaw = (props: IInjectedProps) => {
 
     const { playerBoard, computerBoard, generatePlayerBoard, generateComputerBoard,
-            generateRandomCoordinates, placeHit
+            generateStartCoordinates, placeHit
           } = props;
 
     const generateBoards = () => {
         generatePlayerBoard!()
         generateComputerBoard!()
-        generateRandomCoordinates!()
+        generateStartCoordinates!()
     }
 
     const checkIfHit = (j:number, i:number) => {
@@ -62,7 +62,7 @@ export const Battleships = inject(
         computerBoard: store.battleshipsGameStore.computerBoard,
         generatePlayerBoard: store.battleshipsGameStore.generatePlayerBoard,
         generateComputerBoard: store.battleshipsGameStore.generateComputerBoard,
-        generateRandomCoordinates: store.battleshipsGameStore.generateRandomCoordinates,
+        generateStartCoordinates: store.battleshipsGameStore.generateStartCoordinates,
         placeHit: store.battleshipsGameStore.placeHit
     })
   )(observer(BattleshipsRaw));
