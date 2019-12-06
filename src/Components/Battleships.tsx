@@ -8,30 +8,23 @@ interface IInjectedProps {
     // hits : number,
     // misses : number,
     // gameStarted : boolean,
-    orientation?: string;
     generatePlayerBoard?: () => void;
     generateComputerBoard?: () => void;
-    // generateStartCoordinates?: () => void;
-    // determineOrientation?: () => void;
-    // placeHorizontally?: () => void;
-    placeShip?: (currentLength: number) => void;
     fillBoard?: () => void;
     placeHit?: (j:number, i:number) => void;
+    hits?: number;
+    misses?: number;
 }
 
 const BattleshipsRaw = (props: IInjectedProps) => {
 
-    const { playerBoard, computerBoard, orientation, generatePlayerBoard,
-            generateComputerBoard,
-            // generateStartCoordinates, determineOrientation, placeHorizontally,
-            placeShip, fillBoard, placeHit
+    const { playerBoard, generatePlayerBoard, generateComputerBoard,
+        fillBoard, placeHit, hits, misses
           } = props;
 
     const generateBoards = () => {
         generatePlayerBoard!()
         generateComputerBoard!()
-        // generateStartCoordinates!()
-        // determineOrientation!()
         fillBoard!()
     }
 
@@ -61,6 +54,8 @@ const BattleshipsRaw = (props: IInjectedProps) => {
                     )}
                 </div>
             )}
+            <p>Hits: {hits}</p>
+            <p>Misses: {misses}</p>
         </>
     );
 }
@@ -69,14 +64,11 @@ export const Battleships = inject(
     ({ store }: { store: Stores }): IInjectedProps => ({
         playerBoard: store.battleshipsGameStore.playerBoard,
         computerBoard: store.battleshipsGameStore.computerBoard,
-        orientation: store.battleshipsGameStore.orientation,
         generatePlayerBoard: store.battleshipsGameStore.generatePlayerBoard,
         generateComputerBoard: store.battleshipsGameStore.generateComputerBoard,
-        // generateStartCoordinates: store.battleshipsGameStore.generateStartCoordinates,
-        // determineOrientation: store.battleshipsGameStore.determineOrientation,
-        // placeHorizontally: store.battleshipsGameStore.placeHorizontally,
-        placeShip: store.battleshipsGameStore.placeShip,
         fillBoard: store.battleshipsGameStore. fillBoard,
-        placeHit: store.battleshipsGameStore.placeHit
+        placeHit: store.battleshipsGameStore.placeHit,
+        hits: store.battleshipsGameStore.hits,
+        misses: store.battleshipsGameStore.misses
     })
   )(observer(BattleshipsRaw));

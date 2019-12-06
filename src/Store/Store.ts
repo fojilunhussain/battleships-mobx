@@ -18,10 +18,6 @@ class BattleshipsGameStore {
     @observable
     computerBoard: string[][] = []
     @observable
-    placeShipCoordinateY: number = 0
-    @observable
-    placeShipCoordinateX: number = 0
-    @observable
     ships: ships = {
         Carrier: 5,
         Battleship: 4,
@@ -30,11 +26,9 @@ class BattleshipsGameStore {
         Destroyer: 2
     }
     @observable
-    orientation: string = ""
-    // @observable
-    // hits: number = 0
-    // @observable
-    // misses: number = 0
+    hits: number = 0
+    @observable
+    misses: number = 0
     // @observable
     // gameStarted: boolean = false
 
@@ -68,34 +62,34 @@ class BattleshipsGameStore {
     }
     @action
     checkValidPlacement = (currentLength: number) => {
-        this.placeShipCoordinateY = Math.floor(Math.random() * 10)
-        this.placeShipCoordinateX = Math.floor(Math.random() * 10)
-        if (this.placeShipCoordinateX + currentLength > 9
+        let placeShipCoordinateY = Math.floor(Math.random() * 10)
+        let placeShipCoordinateX = Math.floor(Math.random() * 10)
+        if (placeShipCoordinateX + currentLength > 9
             || this.computerBoard.slice(
-                this.placeShipCoordinateX, currentLength + this.placeShipCoordinateX + 1
+                placeShipCoordinateX, currentLength + placeShipCoordinateX + 1
             ).includes(["O"])) {
                 this.checkValidPlacement(currentLength)
             } else {
-                this.placeShip(currentLength)
+                this.placeShip(currentLength, placeShipCoordinateY, placeShipCoordinateX)
             }
     }
     @action
-    placeShip = (currentLength: number) => {
+    placeShip = (currentLength: number, placeShipCoordinateY: number, placeShipCoordinateX: number) => {
         for (let i = 0; i < currentLength; i++) {
-            this.computerBoard[this.placeShipCoordinateY][this.placeShipCoordinateX] = "O"
-            console.log(this.placeShipCoordinateY, this.placeShipCoordinateX)
-            this.placeShipCoordinateX += 1
+            this.computerBoard[placeShipCoordinateY][placeShipCoordinateX] = "O"
+            console.log(placeShipCoordinateY, placeShipCoordinateX)
+            placeShipCoordinateX += 1
         }
     }
     @action
     placeHit = (j: number, i: number) => {
         console.log(j, i)
         if (this.computerBoard[j][i] === "O") {
-            console.log("ooo")
+            this.hits += 1
             this.playerBoard[j][i] = "O"
         } else {
             this.playerBoard[j][i] = "X"
-            console.log("eee")
+            this.misses += 1
         }
     }
 }
