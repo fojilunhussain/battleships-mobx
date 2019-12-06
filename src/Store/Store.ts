@@ -16,7 +16,7 @@ class BattleshipsGameStore {
     @observable
     playerBoard: string[][] = []
     @observable
-    computerBoard: string[][]  = []
+    computerBoard: string[][] = []
     @observable
     placeShipCoordinateY: number = 0
     @observable
@@ -47,7 +47,7 @@ class BattleshipsGameStore {
             }
         }
         console.log(toJS(this.playerBoard))
-        return(this.playerBoard)
+        return (this.playerBoard)
     }
     @action
     generateComputerBoard = () => {
@@ -58,7 +58,7 @@ class BattleshipsGameStore {
             }
         }
         console.log(toJS(this.computerBoard))
-        return(this.computerBoard)
+        return (this.computerBoard)
     }
     // @action
     // generateStartCoordinates = () => {
@@ -99,31 +99,37 @@ class BattleshipsGameStore {
     //     }
     // }
     @action
-    placeShip = () => {
-        console.log(this.placeShipCoordinateY, this.placeShipCoordinateX)
-        if (this.computerBoard[this.placeShipCoordinateY][this.placeShipCoordinateX] = "_") {
-            this.computerBoard[this.placeShipCoordinateY][this.placeShipCoordinateX] = "O"
-
-        } else {
-            this.placeShip()
-        }
-    }
-    @action
     fillBoard = () => {
         Object.values(this.ships).map(currentLength => {
-            this.placeShipCoordinateY = Math.floor(Math.random()*10)
-            this.placeShipCoordinateX = Math.floor(Math.random()*10)
             console.log(currentLength)
-            for (let i = 0; i < currentLength; i++) {
-                this.placeShip()
-                this.placeShipCoordinateX += 1
-            }
-            
+            this.checkValidPlacement(currentLength)
+            this.placeShip(currentLength)
         })
         console.log(toJS(this.computerBoard))
     }
     @action
-    placeHit = (j:number, i:number) => {
+    checkValidPlacement = (currentLength: number) => {
+
+    }
+    @action
+    placeShip = (currentLength: number) => {
+        this.placeShipCoordinateY = Math.floor(Math.random() * 10)
+        this.placeShipCoordinateX = Math.floor(Math.random() * 10)
+        for (let i = 0; i < currentLength; i++) {
+            if (this.placeShipCoordinateX + currentLength > 9
+                || this.computerBoard.slice(
+                    this.placeShipCoordinateX, currentLength + this.placeShipCoordinateX + 1
+                    ).includes(["O"])){
+                console.log("aaa")
+            } else {
+                this.computerBoard[this.placeShipCoordinateY][this.placeShipCoordinateX] = "O"
+            }
+            console.log(this.placeShipCoordinateY, this.placeShipCoordinateX)
+            this.placeShipCoordinateX += 1
+        }
+    }
+    @action
+    placeHit = (j: number, i: number) => {
         console.log(j, i)
         if (this.computerBoard[j][i] === "O") {
             console.log("ooo")
@@ -135,6 +141,6 @@ class BattleshipsGameStore {
     }
 }
 
-export const store : Stores = {
-    battleshipsGameStore : new BattleshipsGameStore()
+export const store: Stores = {
+    battleshipsGameStore: new BattleshipsGameStore()
 }

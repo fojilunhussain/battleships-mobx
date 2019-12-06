@@ -14,7 +14,7 @@ interface IInjectedProps {
     // generateStartCoordinates?: () => void;
     // determineOrientation?: () => void;
     // placeHorizontally?: () => void;
-    placeShip?: () => void;
+    placeShip?: (currentLength: number) => void;
     fillBoard?: () => void;
     placeHit?: (j:number, i:number) => void;
 }
@@ -32,7 +32,6 @@ const BattleshipsRaw = (props: IInjectedProps) => {
         generateComputerBoard!()
         // generateStartCoordinates!()
         // determineOrientation!()
-        placeShip!()
         fillBoard!()
     }
 
