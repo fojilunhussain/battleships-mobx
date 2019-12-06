@@ -30,6 +30,7 @@ class BattleshipsGameStore {
         Destroyer: 2
     }
     @observable
+<<<<<<< Updated upstream
     orientation: string = ""
     // @observable
     // hits: number = 0
@@ -37,6 +38,13 @@ class BattleshipsGameStore {
     // misses: number = 0
     // @observable
     // gameStarted: boolean = false
+=======
+    hits: number = 0
+    @observable
+    misses: number = 0
+    @observable
+    gameStarted: boolean = false
+>>>>>>> Stashed changes
 
     @action
     generatePlayerBoard = () => {
@@ -60,22 +68,32 @@ class BattleshipsGameStore {
     }
     @action
     fillBoard = () => {
-        Object.values(this.ships).map(currentLength => {
-            console.log(currentLength)
-            this.checkValidPlacement(currentLength)
+        Object.values(this.ships).map(shipLength => {
+            console.log(shipLength)
+            this.checkValidPlacement(shipLength)
         })
         console.log(toJS(this.computerBoard))
     }
     @action
+<<<<<<< Updated upstream
     checkValidPlacement = (currentLength: number) => {
         this.placeShipCoordinateY = Math.floor(Math.random() * 10)
         this.placeShipCoordinateX = Math.floor(Math.random() * 10)
         if (this.placeShipCoordinateX + currentLength > 9
             || this.computerBoard.slice(
                 this.placeShipCoordinateX, currentLength + this.placeShipCoordinateX + 1
+=======
+    checkValidPlacement = (shipLength: number) => {
+        let placeShipCoordinateY: number = Math.floor(Math.random() * 10)
+        let placeShipCoordinateX: number = Math.floor(Math.random() * 10)
+        if (placeShipCoordinateX + shipLength > 9
+            || this.computerBoard.slice(
+                placeShipCoordinateX, shipLength + placeShipCoordinateX + 1
+>>>>>>> Stashed changes
             ).includes(["O"])) {
-                this.checkValidPlacement(currentLength)
+                this.checkValidPlacement(shipLength)
             } else {
+<<<<<<< Updated upstream
                 this.placeShip(currentLength)
             }
     }
@@ -85,7 +103,19 @@ class BattleshipsGameStore {
             this.computerBoard[this.placeShipCoordinateY][this.placeShipCoordinateX] = "O"
             console.log(this.placeShipCoordinateY, this.placeShipCoordinateX)
             this.placeShipCoordinateX += 1
+=======
+                this.placeShip(shipLength, placeShipCoordinateY, placeShipCoordinateX)
+            }
+    }
+    @action
+    placeShip = (shipLength: number, placeShipCoordinateY: number, placeShipCoordinateX: number) => {
+        for (let i = 0; i < shipLength; i++) {
+            this.computerBoard[placeShipCoordinateY][placeShipCoordinateX] = "O"
+            console.log(placeShipCoordinateY, placeShipCoordinateX)
+            placeShipCoordinateX += 1
+>>>>>>> Stashed changes
         }
+        this.gameStarted = true
     }
     @action
     placeHit = (j: number, i: number) => {
@@ -97,6 +127,15 @@ class BattleshipsGameStore {
             this.playerBoard[j][i] = "X"
             console.log("eee")
         }
+    }
+    @action
+    checkIfEnded = () => {
+        // function isHit () {
+        //     return cell === ""
+        // }
+        // this.playerBoard.map(row => {
+        //     let arrayOfShips = row.filter(row.includes([""]))
+        // })
     }
 }
 

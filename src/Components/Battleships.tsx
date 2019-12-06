@@ -17,14 +17,25 @@ interface IInjectedProps {
     placeShip?: (currentLength: number) => void;
     fillBoard?: () => void;
     placeHit?: (j:number, i:number) => void;
+<<<<<<< Updated upstream
+=======
+    hits?: number;
+    misses?: number;
+    checkIfEnded?: () => void;
+>>>>>>> Stashed changes
 }
 
 const BattleshipsRaw = (props: IInjectedProps) => {
 
+<<<<<<< Updated upstream
     const { playerBoard, computerBoard, orientation, generatePlayerBoard,
             generateComputerBoard,
             // generateStartCoordinates, determineOrientation, placeHorizontally,
             placeShip, fillBoard, placeHit
+=======
+    const { playerBoard, generatePlayerBoard, generateComputerBoard,
+        fillBoard, placeHit, hits, misses, checkIfEnded
+>>>>>>> Stashed changes
           } = props;
 
     const generateBoards = () => {
@@ -37,6 +48,10 @@ const BattleshipsRaw = (props: IInjectedProps) => {
 
     const checkIfHit = (j:number, i:number) => {
         placeHit!(j, i)
+    }
+
+    const checkGameOver = () => {
+        checkIfEnded!()
     }
     
     return(
@@ -54,6 +69,7 @@ const BattleshipsRaw = (props: IInjectedProps) => {
                             name={`${j},${i}`}
                             onClick = {() => {
                                 checkIfHit(j, i)
+                                checkGameOver()
                             }}
                         >
                             {playerBoard![j][i]}
@@ -77,6 +93,13 @@ export const Battleships = inject(
         // placeHorizontally: store.battleshipsGameStore.placeHorizontally,
         placeShip: store.battleshipsGameStore.placeShip,
         fillBoard: store.battleshipsGameStore. fillBoard,
+<<<<<<< Updated upstream
         placeHit: store.battleshipsGameStore.placeHit
+=======
+        placeHit: store.battleshipsGameStore.placeHit,
+        hits: store.battleshipsGameStore.hits,
+        misses: store.battleshipsGameStore.misses,
+        checkIfEnded: store.battleshipsGameStore.checkIfEnded
+>>>>>>> Stashed changes
     })
   )(observer(BattleshipsRaw));
