@@ -60,44 +60,67 @@ class BattleshipsGameStore {
         console.log(toJS(this.computerBoard))
         return(this.computerBoard)
     }
+    // @action
+    // generateStartCoordinates = () => {
+    //     Object.values(this.ships).map(currentObject => {
+    //         this.determineOrientation()
+    //         console.log(currentObject)
+    //         this.placeShipCoordinateY = Math.floor(Math.random()*10)
+    //         this.placeShipCoordinateX = Math.floor(Math.random()*10)
+    //         console.log(this.placeShipCoordinateY, this.placeShipCoordinateX)
+    //         this.computerBoard[this.placeShipCoordinateY][this.placeShipCoordinateX] = "O"
+    //         console.log(toJS(this.computerBoard))
+    //     })
+    //     return(this.placeShipCoordinateY, this.placeShipCoordinateX, this.computerBoard)
+    // }
+    // @action
+    // determineOrientation = () => {
+    //     if (Math.round(Math.random()*1) === 0) {
+    //         this.orientation = "Horizontal"
+    //         console.log(this.orientation)
+    //         this.placeHorizontally()
+    //     } else {
+    //         this.orientation = "Vertical"
+    //         console.log(this.orientation)
+    //         this.placeVertically()
+    //     }
+    //     return this.orientation
+    // }
+    // @action
+    // placeHorizontally = () => {
+    //     if (this.orientation === "Horizontal") {
+    //         console.log("wwwwwwwww")
+    //     }
+    // }
+    // @action
+    // placeVertically = () => {
+    //     if (this.orientation === "Vertical") {
+    //         console.log("mmmmmmmmm")
+    //     }
+    // }
     @action
-    generateStartCoordinates = () => {
-        Object.values(this.ships).map((currentObject, index) => {
-            console.log(currentObject)
+    placeShip = () => {
+        console.log(this.placeShipCoordinateY, this.placeShipCoordinateX)
+        if (this.computerBoard[this.placeShipCoordinateY][this.placeShipCoordinateX] = "_") {
+            this.computerBoard[this.placeShipCoordinateY][this.placeShipCoordinateX] = "O"
+
+        } else {
+            this.placeShip()
+        }
+    }
+    @action
+    fillBoard = () => {
+        Object.values(this.ships).map(currentLength => {
             this.placeShipCoordinateY = Math.floor(Math.random()*10)
             this.placeShipCoordinateX = Math.floor(Math.random()*10)
-            console.log(this.placeShipCoordinateY, this.placeShipCoordinateX)
-            this.computerBoard[this.placeShipCoordinateY][this.placeShipCoordinateX] = "O"
-            console.log(toJS(this.computerBoard))
+            console.log(currentLength)
+            for (let i = 0; i < currentLength; i++) {
+                this.placeShip()
+                this.placeShipCoordinateX += 1
+            }
+            
         })
-        return(this.placeShipCoordinateY, this.placeShipCoordinateX, this.computerBoard)
-    }
-    @action
-    determineOrientation = () => {
-        if (Math.round(Math.random()*1) === 0) {
-            this.orientation = "Horizontal"
-            console.log(this.orientation)
-            this.placeHorizontally()
-            // return this.orientation
-        } else {
-            this.orientation = "Vertical"
-            console.log(this.orientation)
-            this.placeVertically()
-            // return this.orientation
-        }
-        return this.orientation
-    }
-    @action
-    placeHorizontally = () => {
-        if (this.orientation === "Horizontal") {
-            console.log("wwwwwwwww")
-        }
-    }
-    @action
-    placeVertically = () => {
-        if (this.orientation === "Vertical") {
-            console.log("mmmmmmmmm")
-        }
+        console.log(toJS(this.computerBoard))
     }
     @action
     placeHit = (j:number, i:number) => {
