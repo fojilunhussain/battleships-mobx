@@ -124,18 +124,10 @@ class BattleshipsGameStore {
         console.log(shipType.coordinates[0].y)
         for (let i = 0; i < shipType.length; i++) {
             console.log(shipType.coordinates[0].y)
-            this.computerBoard[shipType.coordinates[0].y!][shipType.coordinates[0].x!] = shipType.initials
-            shipType.coordinates[0].x! += 1
+            this.computerBoard[shipType.coordinates[0].y][shipType.coordinates[0].x] = shipType.initials
+            shipType.coordinates[0].x += 1
         }
-        // for (let i = 0; i < shipType.length; i++) {
-        //     this.computerBoard[shipType.coordinates[0].y]
-        // }
-        // for (let i = 0; i < shipLength; i++) {
-        //     this.computerBoard[placeShipCoordinateY][placeShipCoordinateX] = "O"
-        //     console.log(placeShipCoordinateY, placeShipCoordinateX)
-        //     placeShipCoordinateX += 1
-        // }
-        // this.gameStarted = true
+        this.gameStarted = true
     }
     @action
     placeHit = (j: number, i: number) => {
