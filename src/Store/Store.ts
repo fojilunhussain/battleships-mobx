@@ -109,13 +109,13 @@ class BattleshipsGameStore {
         shipType.coordinates[0].x = Math.floor(Math.random() * 10) // start x coord
         shipType.coordinates[1].y = shipType.coordinates[0].y // end y coord
         shipType.coordinates[1].x = shipType.coordinates[0].x + shipType.length - 1 // end x coord
-        if (shipType.coordinates[0].x + shipType.length > 9
-            || this.computerBoard[shipType.coordinates[0].y].slice(
+        if (shipType.coordinates[0].x + shipType.length <= 9
+            && this.computerBoard[shipType.coordinates[0].y].slice(
                 shipType.coordinates[0].x, shipType.length + shipType.coordinates[0].x
-            ).includes("O")) { // change to a filter later
-                this.checkValidPlacement(shipType)
-            } else {
+            ).includes("_")) { // change to a filter later
                 this.placeShip(shipType)
+            } else {
+                this.checkValidPlacement(shipType)
             }
     }
     @action
