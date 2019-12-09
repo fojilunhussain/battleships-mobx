@@ -10,13 +10,12 @@ interface IInjectedProps {
     placeHit?: (j:number, i:number) => void;
     hits?: number;
     misses?: number;
-    checkIfEnded?: () => void;
 }
 
 const BattleshipsRaw = (props: IInjectedProps) => {
 
     const { playerBoard, generatePlayerBoard, generateComputerBoard,
-        fillBoard, placeHit, hits, misses, checkIfEnded
+        fillBoard, placeHit, hits, misses
           } = props;
 
     const generateBoards = () => {

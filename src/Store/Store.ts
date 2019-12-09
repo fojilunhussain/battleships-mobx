@@ -4,7 +4,7 @@ export interface Stores {
     battleshipsGameStore: BattleshipsGameStore
 }
 
-interface ships {
+interface IShips {
     Carrier: number;
     Battleship: number;
     Cruiser: number;
@@ -18,7 +18,7 @@ class BattleshipsGameStore {
     @observable
     computerBoard: string[][] = []
     @observable
-    ships: ships = {
+    ships: IShips = {
         Carrier: 5,
         Battleship: 4,
         Cruiser: 3,
@@ -65,11 +65,13 @@ class BattleshipsGameStore {
         let placeShipCoordinateY: number = Math.floor(Math.random() * 10)
         let placeShipCoordinateX: number = Math.floor(Math.random() * 10)
         if (placeShipCoordinateX + shipLength > 9
-            || this.computerBoard.slice(
-                placeShipCoordinateX, shipLength + placeShipCoordinateX + 1
-            ).includes(["O"])) {
+            || this.computerBoard[placeShipCoordinateY].slice(
+                placeShipCoordinateX, shipLength + placeShipCoordinateX -1
+            ).includes("O")) {
+                console.log("boat in range")
                 this.checkValidPlacement(shipLength)
             } else {
+                console.log("boat placed correctly")
                 this.placeShip(shipLength, placeShipCoordinateY, placeShipCoordinateX)
             }
     }
