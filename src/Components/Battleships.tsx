@@ -4,17 +4,8 @@ import { Stores } from "../Store/Store"
 
 interface IInjectedProps {
     playerBoard?: string[][];
-    computerBoard?: string[][];
-    // hits : number,
-    // misses : number,
-    // gameStarted : boolean,
-    orientation?: string;
     generatePlayerBoard?: () => void;
     generateComputerBoard?: () => void;
-    // generateStartCoordinates?: () => void;
-    // determineOrientation?: () => void;
-    // placeHorizontally?: () => void;
-    placeShip?: (currentLength: number) => void;
     fillBoard?: () => void;
     placeHit?: (j:number, i:number) => void;
     hits?: number;
@@ -31,8 +22,6 @@ const BattleshipsRaw = (props: IInjectedProps) => {
     const generateBoards = () => {
         generatePlayerBoard!()
         generateComputerBoard!()
-        // generateStartCoordinates!()
-        // determineOrientation!()
         fillBoard!()
     }
 
@@ -74,14 +63,8 @@ const BattleshipsRaw = (props: IInjectedProps) => {
 export const Battleships = inject(
     ({ store }: { store: Stores }): IInjectedProps => ({
         playerBoard: store.battleshipsGameStore.playerBoard,
-        computerBoard: store.battleshipsGameStore.computerBoard,
-        orientation: store.battleshipsGameStore.orientation,
         generatePlayerBoard: store.battleshipsGameStore.generatePlayerBoard,
         generateComputerBoard: store.battleshipsGameStore.generateComputerBoard,
-        // generateStartCoordinates: store.battleshipsGameStore.generateStartCoordinates,
-        // determineOrientation: store.battleshipsGameStore.determineOrientation,
-        // placeHorizontally: store.battleshipsGameStore.placeHorizontally,
-        placeShip: store.battleshipsGameStore.placeShip,
         fillBoard: store.battleshipsGameStore. fillBoard,
         placeHit: store.battleshipsGameStore.placeHit,
         hits: store.battleshipsGameStore.hits,
