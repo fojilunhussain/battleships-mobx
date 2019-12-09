@@ -5,11 +5,23 @@ export interface Stores {
 }
 
 interface IShips {
-    Carrier: number;
-    Battleship: number;
-    Cruiser: number;
-    Submarine: number;
-    Destroyer: number;
+    Carrier: IShipState;
+    Battleship: IShipState;
+    Cruiser: IShipState;
+    Submarine: IShipState;
+    Destroyer: IShipState;
+}
+
+interface ICoordinates {
+    y: number;
+    x: number;
+}
+
+interface IShipState {
+    length: number;
+    coordinates: [ICoordinates,ICoordinates];
+    sunk: boolean;
+    initials: string;
 }
 
 class BattleshipsGameStore {
@@ -19,11 +31,36 @@ class BattleshipsGameStore {
     computerBoard: string[][] = []
     @observable
     ships: IShips = {
-        Carrier: 5,
-        Battleship: 4,
-        Cruiser: 3,
-        Submarine: 3,
-        Destroyer: 2
+        Carrier: {
+            length: 5,
+            coordinates: [{x: 0, y: 0}, {x: 4, y: 0}],
+            sunk: false,
+            initials: "CA"
+        },
+        Battleship: {
+            length: 4,
+            coordinates: [{x: 0, y: 1}, {x:3, y: 1}],
+            sunk: false,
+            initials: "BA"
+        },
+        Cruiser: {
+            length: 3,
+            coordinates: [{x: 0, y: 2}, {x:2, y: 2}],
+            sunk: false,
+            initials: "CR"
+        },
+        Submarine: {
+            length: 3,
+            coordinates: [{x: 0, y: 3}, {x:2, y: 3}],
+            sunk: false,
+            initials: "SU"
+        },
+        Destroyer: {
+            length: 2,
+            coordinates: [{x: 0, y: 4}, {x:1, y: 4}],
+            sunk: false,
+            initials: "DE"
+        }
     }
     @observable
     hits: number = 0
@@ -68,10 +105,8 @@ class BattleshipsGameStore {
             || this.computerBoard[placeShipCoordinateY].slice(
                 placeShipCoordinateX, shipLength + placeShipCoordinateX -1
             ).includes("O")) {
-                console.log("boat in range")
                 this.checkValidPlacement(shipLength)
             } else {
-                console.log("boat placed correctly")
                 this.placeShip(shipLength, placeShipCoordinateY, placeShipCoordinateX)
             }
     }
