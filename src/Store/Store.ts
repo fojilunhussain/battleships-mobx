@@ -23,6 +23,7 @@ interface IShipState {
     length: number;
     coordinates: [ICoordinates,ICoordinates];
     sunk: boolean;
+    orientation: "Horizontal" | "Vertical"
 }
 
 class BattleshipsGameStore {
@@ -37,35 +38,40 @@ class BattleshipsGameStore {
             initials: "CA",
             length: 5,
             coordinates: [{y: undefined, x: undefined}, {y: undefined, x: undefined}],
-            sunk: false
+            sunk: false,
+            orientation: "Horizontal"
         },
         Battleship: {
             name: "Battleship",
             initials: "BA",
             length: 4,
             coordinates: [{y: undefined, x: undefined}, {y: undefined, x: undefined}],
-            sunk: false
+            sunk: false,
+            orientation: "Horizontal"
         },
         Cruiser: {
             name: "Cruiser",
             initials: "CR",
             length: 3,
             coordinates: [{y: undefined, x: undefined}, {y:undefined, x: undefined}],
-            sunk: false
+            sunk: false,
+            orientation: "Horizontal"
         },
         Submarine: {
             name: "Submarine",
             initials: "SU",
             length: 3,
             coordinates: [{y: undefined, x: undefined}, {y: undefined, x: undefined}],
-            sunk: false
+            sunk: false,
+            orientation: "Horizontal"
         },
         Destroyer: {
             name: "Destroyer",
             initials: "DE",
             length: 2,
             coordinates: [{y: undefined, x: undefined}, {y: undefined, x: undefined}],
-            sunk: false
+            sunk: false,
+            orientation: "Horizontal"
         }
     }
     @observable
@@ -112,7 +118,7 @@ class BattleshipsGameStore {
         if (shipType.coordinates[0].x + shipType.length <= 9
             && this.computerBoard[shipType.coordinates[0].y].slice(
                 shipType.coordinates[0].x, shipType.length + shipType.coordinates[0].x
-            ).includes("_")) { // change to a filter later
+            ).includes("_")) {
                 this.placeShip(shipType)
             } else {
                 this.checkValidPlacement(shipType)

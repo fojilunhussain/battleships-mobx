@@ -38,7 +38,7 @@ const BattleshipsRaw = (props: Partial<IInjectedProps>) => {
                 New game
             </button>
 
-            {playerBoard!.map((row, j) =>
+            {playerBoard.map((row, j) =>
                 <div key={j}>
                     {row.map((column, i) =>
                         <button
@@ -50,7 +50,7 @@ const BattleshipsRaw = (props: Partial<IInjectedProps>) => {
                                 checkGameOver()
                             }}
                         >
-                            {playerBoard![j][i]}
+                            {playerBoard[j][i]}
                         </button>
                     )}
                 </div>
