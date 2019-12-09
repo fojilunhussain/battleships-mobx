@@ -30,7 +30,7 @@ const BattleshipsRaw = (props: IInjectedProps) => {
     }
 
     const checkGameOver = () => {
-        checkIfEnded!()
+
     }
     
     return(
@@ -56,6 +56,8 @@ const BattleshipsRaw = (props: IInjectedProps) => {
                     )}
                 </div>
             )}
+            <p>Hits: {hits}</p>
+            <p>Misses: {misses}</p>
         </>
     );
 }
@@ -68,7 +70,6 @@ export const Battleships = inject(
         fillBoard: store.battleshipsGameStore. fillBoard,
         placeHit: store.battleshipsGameStore.placeHit,
         hits: store.battleshipsGameStore.hits,
-        misses: store.battleshipsGameStore.misses,
-        checkIfEnded: store.battleshipsGameStore.checkIfEnded
+        misses: store.battleshipsGameStore.misses
     })
   )(observer(BattleshipsRaw));

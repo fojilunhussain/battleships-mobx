@@ -18,10 +18,6 @@ class BattleshipsGameStore {
     @observable
     computerBoard: string[][] = []
     @observable
-    placeShipCoordinateY: number = 0
-    @observable
-    placeShipCoordinateX: number = 0
-    @observable
     ships: ships = {
         Carrier: 5,
         Battleship: 4,
@@ -90,21 +86,12 @@ class BattleshipsGameStore {
     placeHit = (j: number, i: number) => {
         console.log(j, i)
         if (this.computerBoard[j][i] === "O") {
-            console.log("ooo")
+            this.hits += 1
             this.playerBoard[j][i] = "O"
         } else {
             this.playerBoard[j][i] = "X"
-            console.log("eee")
+            this.misses += 1
         }
-    }
-    @action
-    checkIfEnded = () => {
-        // function isHit () {
-        //     return cell === ""
-        // }
-        // this.playerBoard.map(row => {
-        //     let arrayOfShips = row.filter(row.includes([""]))
-        // })
     }
 }
 
