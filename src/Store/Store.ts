@@ -13,15 +13,16 @@ interface IShips {
 }
 
 interface ICoordinates {
-    y: number;
-    x: number;
+    y: number | undefined;
+    x: number | undefined;
 }
 
 interface IShipState {
+    name: string;
+    initials: string;
     length: number;
     coordinates: [ICoordinates,ICoordinates];
     sunk: boolean;
-    initials: string;
 }
 
 class BattleshipsGameStore {
@@ -32,34 +33,39 @@ class BattleshipsGameStore {
     @observable
     ships: IShips = {
         Carrier: {
+            name: "Carrier",
+            initials: "CA",
             length: 5,
-            coordinates: [{x: 0, y: 0}, {x: 4, y: 0}],
-            sunk: false,
-            initials: "CA"
+            coordinates: [{y: undefined, x: undefined}, {y: undefined, x: undefined}],
+            sunk: false
         },
         Battleship: {
+            name: "Battleship",
+            initials: "BA",
             length: 4,
-            coordinates: [{x: 0, y: 1}, {x:3, y: 1}],
-            sunk: false,
-            initials: "BA"
+            coordinates: [{y: undefined, x: undefined}, {y: undefined, x: undefined}],
+            sunk: false
         },
         Cruiser: {
+            name: "Cruiser",
+            initials: "CR",
             length: 3,
-            coordinates: [{x: 0, y: 2}, {x:2, y: 2}],
-            sunk: false,
-            initials: "CR"
+            coordinates: [{y: undefined, x: undefined}, {y:undefined, x: undefined}],
+            sunk: false
         },
         Submarine: {
+            name: "Submarine",
+            initials: "SU",
             length: 3,
-            coordinates: [{x: 0, y: 3}, {x:2, y: 3}],
-            sunk: false,
-            initials: "SU"
+            coordinates: [{y: undefined, x: undefined}, {y: undefined, x: undefined}],
+            sunk: false
         },
         Destroyer: {
+            name: "Destroyer",
+            initials: "DE",
             length: 2,
-            coordinates: [{x: 0, y: 4}, {x:1, y: 4}],
-            sunk: false,
-            initials: "DE"
+            coordinates: [{y: undefined, x: undefined}, {y: undefined, x: undefined}],
+            sunk: false
         }
     }
     @observable
@@ -91,24 +97,23 @@ class BattleshipsGameStore {
     }
     @action
     fillBoard = () => {
-        Object.values(this.ships).map(shipLength => {
-            console.log(shipLength)
-            this.checkValidPlacement(shipLength)
+        Object.values(this.ships).map(shipType => {
+            this.checkValidPlacement(shipType)
         })
         console.log(toJS(this.computerBoard))
     }
     @action
-    checkValidPlacement = (shipLength: number) => {
-        let placeShipCoordinateY: number = Math.floor(Math.random() * 10)
-        let placeShipCoordinateX: number = Math.floor(Math.random() * 10)
-        if (placeShipCoordinateX + shipLength > 9
-            || this.computerBoard[placeShipCoordinateY].slice(
-                placeShipCoordinateX, shipLength + placeShipCoordinateX -1
-            ).includes("O")) {
-                this.checkValidPlacement(shipLength)
-            } else {
-                this.placeShip(shipLength, placeShipCoordinateY, placeShipCoordinateX)
-            }
+    checkValidPlacement = (shipType: object) => {
+        // let placeShipCoordinateY: number = Math.floor(Math.random() * 10)
+        // let placeShipCoordinateX: number = Math.floor(Math.random() * 10)
+        // if (placeShipCoordinateX + shipLength > 9
+        //     || this.computerBoard[placeShipCoordinateY].slice(
+        //         placeShipCoordinateX, shipLength + placeShipCoordinateX -1
+        //     ).includes("O")) {
+        //         this.checkValidPlacement(shipLength)
+        //     } else {
+        //         this.placeShip(shipLength, placeShipCoordinateY, placeShipCoordinateX)
+        //     }
     }
     @action
     placeShip = (shipLength: number, placeShipCoordinateY: number, placeShipCoordinateX: number) => {
