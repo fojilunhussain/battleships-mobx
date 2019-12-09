@@ -106,33 +106,36 @@ class BattleshipsGameStore {
     @action
     checkValidPlacement = (shipType: IShipState) => {
         shipType.coordinates[0].y = Math.floor(Math.random() * 10) // start y coord
-        console.log(toJS(shipType.coordinates[0].y) + "start y coord")
         shipType.coordinates[0].x = Math.floor(Math.random() * 10) // start x coord
-        console.log(toJS(shipType.coordinates[0].x) + "start x coord")
         shipType.coordinates[1].y = shipType.coordinates[0].y // end y coord
-        console.log(toJS(shipType.coordinates[1].y) + "end y coord")
         shipType.coordinates[1].x = shipType.coordinates[0].x + shipType.length - 1 // end x coord
-        console.log(toJS(shipType.coordinates[1].x) + "end x coord")
         if (shipType.coordinates[0].x + shipType.length > 9
             || this.computerBoard[shipType.coordinates[0].y].slice(
                 shipType.coordinates[0].x, shipType.length + shipType.coordinates[0].x
-            ).includes("O")) {
-                console.log("invalid placement")
+            ).includes("O")) { // change to a filter later
                 this.checkValidPlacement(shipType)
             } else {
-                console.log("placed correctly")
-                this.placeShip(shipType.length, shipType.coordinates[0].y, shipType.coordinates[0].x)
+                this.placeShip(shipType)
             }
-        console.log(toJS(shipType))
     }
     @action
-    placeShip = (shipLength: number, placeShipCoordinateY: number, placeShipCoordinateX: number) => {
-        for (let i = 0; i < shipLength; i++) {
-            this.computerBoard[placeShipCoordinateY][placeShipCoordinateX] = "O"
-            console.log(placeShipCoordinateY, placeShipCoordinateX)
-            placeShipCoordinateX += 1
+    placeShip = (shipType: IShipState) => {
+        console.log(toJS(shipType))
+        console.log(shipType.coordinates[0].y)
+        for (let i = 0; i < shipType.length; i++) {
+            console.log(shipType.coordinates[0].y)
+            this.computerBoard[shipType.coordinates[0].y!][shipType.coordinates[0].x!] = shipType.initials
+            shipType.coordinates[0].x! += 1
         }
-        this.gameStarted = true
+        // for (let i = 0; i < shipType.length; i++) {
+        //     this.computerBoard[shipType.coordinates[0].y]
+        // }
+        // for (let i = 0; i < shipLength; i++) {
+        //     this.computerBoard[placeShipCoordinateY][placeShipCoordinateX] = "O"
+        //     console.log(placeShipCoordinateY, placeShipCoordinateX)
+        //     placeShipCoordinateX += 1
+        // }
+        // this.gameStarted = true
     }
     @action
     placeHit = (j: number, i: number) => {
