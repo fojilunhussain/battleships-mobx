@@ -106,28 +106,23 @@ class BattleshipsGameStore {
     @action
     checkValidPlacement = (shipType: IShipState) => {
         shipType.coordinates[0].y = Math.floor(Math.random() * 10) // start y coord
-        console.log(toJS(shipType.coordinates[0].y))
+        console.log(toJS(shipType.coordinates[0].y) + "start y coord")
         shipType.coordinates[0].x = Math.floor(Math.random() * 10) // start x coord
-        console.log(toJS(shipType.coordinates[0].x))
+        console.log(toJS(shipType.coordinates[0].x) + "start x coord")
+        shipType.coordinates[1].y = shipType.coordinates[0].y // end y coord
+        console.log(toJS(shipType.coordinates[1].y) + "end y coord")
+        shipType.coordinates[1].x = shipType.coordinates[0].x + shipType.length - 1 // end x coord
+        console.log(toJS(shipType.coordinates[1].x) + "end x coord")
         if (shipType.coordinates[0].x + shipType.length > 9
             || this.computerBoard[shipType.coordinates[0].y].slice(
-                shipType.coordinates[0].x, shipType.length + shipType.coordinates[0].x - 1
+                shipType.coordinates[0].x, shipType.length + shipType.coordinates[0].x
             ).includes("O")) {
+                console.log("invalid placement")
                 this.checkValidPlacement(shipType)
             } else {
+                console.log("placed correctly")
                 this.placeShip(shipType.length, shipType.coordinates[0].y, shipType.coordinates[0].x)
             }
-        // console.log(toJS(this.ships.shipType.name))
-        // let placeShipCoordinateY: number = Math.floor(Math.random() * 10)
-        // let placeShipCoordinateX: number = Math.floor(Math.random() * 10)
-        // if (placeShipCoordinateX + shipLength > 9
-        //     || this.computerBoard[placeShipCoordinateY].slice(
-        //         placeShipCoordinateX, shipLength + placeShipCoordinateX -1
-        //     ).includes("O")) {
-        //         this.checkValidPlacement(shipLength)
-        //     } else {
-        //         this.placeShip(shipLength, placeShipCoordinateY, placeShipCoordinateX)
-        //     }
         console.log(toJS(shipType))
     }
     @action
