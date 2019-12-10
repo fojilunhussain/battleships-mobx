@@ -138,7 +138,7 @@ class BattleshipsGameStore {
     @action
     placeHit = (j: number, i: number) => {
         console.log(j, i)
-        if (this.computerBoard[j][i] === "O") {
+        if (this.computerBoard[j][i] != "_") {
             this.hits += 1
             this.playerBoard[j][i] = "O"
         } else {
