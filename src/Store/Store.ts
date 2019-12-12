@@ -21,7 +21,7 @@ interface IShipState {
     name: string;
     initials: string;
     length: number;
-    coordinates: [ICoordinates,ICoordinates];
+    coordinates: [ICoordinates, ICoordinates];
     sunk: boolean;
     orientation: "Horizontal" | "Vertical"
 }
@@ -37,7 +37,7 @@ class BattleshipsGameStore {
             name: "Carrier",
             initials: "CA",
             length: 5,
-            coordinates: [{y: undefined, x: undefined}, {y: undefined, x: undefined}],
+            coordinates: [{ y: undefined, x: undefined }, { y: undefined, x: undefined }],
             sunk: false,
             orientation: "Horizontal"
         },
@@ -45,7 +45,7 @@ class BattleshipsGameStore {
             name: "Battleship",
             initials: "BA",
             length: 4,
-            coordinates: [{y: undefined, x: undefined}, {y: undefined, x: undefined}],
+            coordinates: [{ y: undefined, x: undefined }, { y: undefined, x: undefined }],
             sunk: false,
             orientation: "Horizontal"
         },
@@ -53,7 +53,7 @@ class BattleshipsGameStore {
             name: "Cruiser",
             initials: "CR",
             length: 3,
-            coordinates: [{y: undefined, x: undefined}, {y:undefined, x: undefined}],
+            coordinates: [{ y: undefined, x: undefined }, { y: undefined, x: undefined }],
             sunk: false,
             orientation: "Horizontal"
         },
@@ -61,7 +61,7 @@ class BattleshipsGameStore {
             name: "Submarine",
             initials: "SU",
             length: 3,
-            coordinates: [{y: undefined, x: undefined}, {y: undefined, x: undefined}],
+            coordinates: [{ y: undefined, x: undefined }, { y: undefined, x: undefined }],
             sunk: false,
             orientation: "Horizontal"
         },
@@ -69,7 +69,7 @@ class BattleshipsGameStore {
             name: "Destroyer",
             initials: "DE",
             length: 2,
-            coordinates: [{y: undefined, x: undefined}, {y: undefined, x: undefined}],
+            coordinates: [{ y: undefined, x: undefined }, { y: undefined, x: undefined }],
             sunk: false,
             orientation: "Horizontal"
         }
@@ -104,8 +104,7 @@ class BattleshipsGameStore {
     @action
     fillBoard = () => {
         Object.values(this.ships).map(shipType => {
-            console.log(toJS(shipType))
-            this.checkValidPlacement(shipType)
+            this.checkValidPlacement(toJS(shipType))
         })
         console.log(toJS(this.computerBoard))
     }
@@ -114,22 +113,32 @@ class BattleshipsGameStore {
         shipType.coordinates[0].y = Math.floor(Math.random() * 10) // start y coord
         shipType.coordinates[0].x = Math.floor(Math.random() * 10) // start x coord
         shipType.coordinates[1].y = shipType.coordinates[0].y // end y coord
-        shipType.coordinates[1].x = shipType.coordinates[0].x + shipType.length - 1 // end x coord
-        if (shipType.coordinates[0].x + shipType.length <= 9
-            && this.computerBoard[shipType.coordinates[0].y].slice(
-                shipType.coordinates[0].x, shipType.length + shipType.coordinates[0].x
-            ).includes("_")) {
-                this.placeShip(shipType)
-            } else {
-                this.checkValidPlacement(shipType)
-            }
+        shipType.coordinates[1].x = shipType.coordinates[0].x + shipType.length // end x coord
+
+        const exceedsRowLength: boolean = shipType.coordinates[0].x + shipType.length > 9;
+        const shipPlacementArea: string[] = this.computerBoard[shipType.coordinates[0].y].slice(
+            shipType.coordinates[0].x, shipType.coordinates[1].x
+        );
+        const cellsOccupied: string[] = shipPlacementArea.filter(function(currentCell) {
+            return (currentCell != "_")
+        })
+
+        console.log(cellsOccupied)
+
+        if (exceedsRowLength || cellsOccupied.length > 0) {
+            console.log("invalid placement")
+            console.log(toJS(shipType))
+            this.checkValidPlacement(shipType)
+        } else {
+            console.log("valid placement")
+            this.placeShip(shipType)
+        }
     }
     @action
     placeShip = (shipType: IShipState) => {
         console.log(toJS(shipType))
-        console.log(shipType.coordinates[0].y)
         for (let i = 0; i < shipType.length; i++) {
-            console.log(shipType.coordinates[0].y)
+            console.log(shipType.coordinates[0].y, shipType.coordinates[0].x)
             this.computerBoard[shipType.coordinates[0].y][shipType.coordinates[0].x] = shipType.initials
             shipType.coordinates[0].x += 1
         }
@@ -138,7 +147,7 @@ class BattleshipsGameStore {
     @action
     placeHit = (j: number, i: number) => {
         console.log(j, i)
-        if (this.computerBoard[j][i] != "_") {
+        if (this.computerBoard[j][i] !== "_") {
             this.hits += 1
             this.playerBoard[j][i] = "O"
         } else {
