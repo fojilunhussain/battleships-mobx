@@ -1,40 +1,46 @@
 import * as React from 'react';
 import { inject, observer } from 'mobx-react';
-import { Stores } from "../Store/Store"
+import { Stores } from "../Store/Store";
 
 interface IInjectedProps {
     playerBoard: string[][];
     generatePlayerBoard: () => void;
     generateComputerBoard: () => void;
     fillBoard: () => void;
-    placeHit: (j:number, i:number) => void;
+    placeHit: (j: number, i: number) => void;
     hits: number;
     misses: number;
-}
+};
 
 const BattleshipsRaw = (props: Partial<IInjectedProps>) => {
 
-    const { playerBoard, generatePlayerBoard, generateComputerBoard,
-        fillBoard, placeHit, hits, misses
-          } = props;
+    const {
+        playerBoard,
+        generatePlayerBoard,
+        generateComputerBoard,
+        fillBoard,
+        placeHit,
+        hits,
+        misses
+    } = props;
 
     const generateBoards = () => {
-        generatePlayerBoard()
-        generateComputerBoard()
-        fillBoard()
-    }
+        generatePlayerBoard();
+        generateComputerBoard();
+        fillBoard();
+    };
 
-    const checkIfHit = (j:number, i:number) => {
-        placeHit(j, i)
-    }
+    const checkIfHit = (j: number, i: number) => {
+        placeHit(j, i);
+    };
 
     const checkGameOver = () => {
 
-    }
-    
-    return(
+    };
+
+    return (
         <>
-            <button onClick = {() => {generateBoards()}}>
+            <button onClick={() => { generateBoards(); }}>
                 New game
             </button>
 
@@ -42,12 +48,12 @@ const BattleshipsRaw = (props: Partial<IInjectedProps>) => {
                 <div key={j}>
                     {row.map((column, i) =>
                         <button
-                            id = {`cell${j}${i}`}
-                            key = {`${j}${i}`}
+                            id={`cell${j}${i}`}
+                            key={`${j}${i}`}
                             name={`${j},${i}`}
-                            onClick = {() => {
-                                checkIfHit(j, i)
-                                checkGameOver()
+                            onClick={() => {
+                                checkIfHit(j, i);
+                                checkGameOver();
                             }}
                         >
                             {playerBoard[j][i]}
@@ -59,16 +65,16 @@ const BattleshipsRaw = (props: Partial<IInjectedProps>) => {
             <p>Misses: {misses}</p>
         </>
     );
-}
+};
 
 export const Battleships = inject(
     ({ store }: { store: Stores }): IInjectedProps => ({
         playerBoard: store.battleshipsGameStore.playerBoard,
         generatePlayerBoard: store.battleshipsGameStore.generatePlayerBoard,
         generateComputerBoard: store.battleshipsGameStore.generateComputerBoard,
-        fillBoard: store.battleshipsGameStore. fillBoard,
+        fillBoard: store.battleshipsGameStore.fillBoard,
         placeHit: store.battleshipsGameStore.placeHit,
         hits: store.battleshipsGameStore.hits,
         misses: store.battleshipsGameStore.misses
     })
-  )(observer(BattleshipsRaw));
+)(observer(BattleshipsRaw));
